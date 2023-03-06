@@ -1,9 +1,11 @@
-import './App.css';
 import Login from "./components/Login/Login";
-function App() {
+import styles from "./App.modules.css";
+import Views from "./components/Views";
+
+const App = () => {
   return (
     <div>
-      <Login />
+      <Views />
     </div>
   );
 }
