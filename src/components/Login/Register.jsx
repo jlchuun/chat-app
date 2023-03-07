@@ -8,7 +8,6 @@ import { Link }  from "react-router-dom";
 const Register = () => {
     const { register, formState: { errors }, handleSubmit, watch } = useForm();
     const onSubmit = data => console.log(data);
-    const password = useRef();
 
     return (
         <div className={styles.registerPage}>
@@ -30,7 +29,7 @@ const Register = () => {
                         })} 
                         placeholder="username"/>
                     <p className={styles.error}>{errors.password?.message}</p>
-                    <input {...register("password", { 
+                    <input type="password" {...register("password", { 
                         required: "Password is required",
                         minLength: {
                             value: 6,
@@ -46,8 +45,16 @@ const Register = () => {
                         } 
                         })} 
                         placeholder="password"/>
-                    <p className={styles.error}>{errors.password?.message}</p>
-                    <input {...register("password", { required: "Password is required" })} placeholder="confirm password"/>
+                    <p className={styles.error}>{errors.confirm_password?.message}</p>
+                    <input type="password" {...register("confirm_password", { 
+                        required: "Password is required",
+                        validate:  (val) => {
+                            if (watch("password") != val) {
+                                return "Passwords must match";
+                            }
+                        }
+                        })} 
+                        placeholder="confirm password"/>
                     <button type="submit">Register</button>
                     <p className={styles.message}>Already have an account? <Link to="/">Login here</Link></p>
                 </form>
