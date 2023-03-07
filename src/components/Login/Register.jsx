@@ -1,6 +1,5 @@
 import styles from "./Login.module.css";
 import { useForm } from "react-hook-form";
-import { useRef } from "react";
 import { Link }  from "react-router-dom";
 
 
@@ -40,7 +39,7 @@ const Register = () => {
                             message: "Password can not be more than 20 characters"
                         },
                         pattern: {
-                            value: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]$",
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/,
                             message: "Password must contain at least one capital and one number"
                         } 
                         })} 
