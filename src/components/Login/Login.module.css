@@ -1,7 +1,8 @@
-@import "../../App.modules.css";
-
+@import "../../vars.css";
 
 .loginPage, .registerPage {
+  position: relative;
+    z-index: 0;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,6 +1,7 @@
 import Views from "./components/Views";
 import { useState, useEffect } from "react";
-import styles from "./App.modules.css";
+import styles from "./App.module.css";
+import "./vars.css";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,7 +33,7 @@ const App = () => {
 
   return (
     <div>
-      <FontAwesomeIcon className={styles.themeToggle} onClick={toggleTheme} icon={themeIcon} />
+      <FontAwesomeIcon className={styles.themeToggle} onClick={toggleTheme} icon={themeIcon} size="3x" />
       <Views />
     </div>
   );
