@@ -1,23 +1,25 @@
 import Views from "./components/Views";
 import { useState, useEffect } from "react";
 import styles from "./App.modules.css";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+library.add(faToggleOn, faToggleOff);
+
 
 
 const App = () => {
   const [theme, setTheme] = useState("lightMode");
-  // useEffect(() => {
-  //   const btn = document.querySelector(`.${styles.themeToggle}`);
-  //   btn.addEventListener("click", () => document.body.classList.toggle(`${styles.darkTheme}`));
-  // }, []);
-
-  // ${styles.darkTheme} || ${styles.lightTheme}
-  // <button className={styles.themeToggle}>Toggle Mode</button>
+  const [themeIcon, setThemeIcon] = useState("fa-toggle-off");
 
   const toggleTheme = () => {
     if (theme === "lightMode") {
       setTheme("darkMode");
+      setThemeIcon("fa-toggle-on");
     } else {
       setTheme("lightMode");
+      setThemeIcon("fa-toggle-off");
     }
   }
 
@@ -30,7 +32,7 @@ const App = () => {
 
   return (
     <div>
-      <button className={styles.themeToggle} onClick={toggleTheme}>Toggle Mode</button>
+      <FontAwesomeIcon className={styles.themeToggle} onClick={toggleTheme} icon={themeIcon} />
       <Views />
     </div>
   );
