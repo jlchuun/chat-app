@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { Link }  from "react-router-dom";
 
 
-
 const Register = () => {
     const { register, formState: { errors }, handleSubmit, watch } = useForm();
     const onSubmit = data => console.log(data);
@@ -48,7 +47,7 @@ const Register = () => {
                     <input type="password" {...register("confirm_password", { 
                         required: "Password is required",
                         validate:  (val) => {
-                            if (watch("password") != val) {
+                            if (watch("password") !== val) {
                                 return "Passwords must match";
                             }
                         }

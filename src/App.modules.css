@@ -5,8 +5,32 @@
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
+.lightMode {
+  --inp-clr: #e7e4d8;
+  --inp-txt-clr: #1c1d1f;
+  --form-bg-clr: #f4f5ef;
 
+  --btn-txt-clr: #ecf7f4;
+  --btn-clr: #0E8388;
 
-body {
-  font-family: "Roboto", sans-serif;
+  --msg-clr: #3f4745;
+  --link-clr: #0E8388;
 }
+
+.darkMode {
+  --inp-clr: #1c1d1f;
+  --inp-txt-clr: #CBE4DE;
+  --form-bg-clr: #2C3333;
+
+  --btn-txt-clr: #CBE4DE;
+  --btn-clr: #0E8388;
+
+  --msg-clr: #CBE4DE;
+  --link-clr: #0E8388;
+}
+
+.themeToggle {
+  top: 0;
+  right: 0;
+}
+

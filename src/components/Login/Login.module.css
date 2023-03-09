@@ -1,13 +1,17 @@
+@import "../../App.modules.css";
+
+
 .loginPage, .registerPage {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background: var(--form-bg-clr);
 }
 
 .form {
   position: relative;
-  background: #FFFFFF;
+  background: var(--form-bg-clr);
   min-width: 15em;
   max-width: 26em;
   padding: 3.5em;
@@ -17,7 +21,8 @@
 
 .form input {
   outline: 0;
-  background: #f2f2f2;
+  background: var(--inp-clr);
+  color: var(--inp-txt-clr);
   width: 100%;
   border: 0;
   margin: 0 0 15px;
@@ -29,11 +34,11 @@
 .form button {
   text-transform: uppercase;
   outline: 0;
-  background: #000000;
+  background: var(--btn-clr);
   width: 100%;
   border: 0;
   padding: 1.2em;
-  color: #FFFFFF;
+  color: var(--btn-txt-clr);
   font-size: 14px;
   cursor: pointer;
 }
@@ -41,7 +46,7 @@
 
 .form .message {
   margin: 1.5em 0 0;
-  color: #9c9c9c;
+  color: var(--msg-clr);
   font-size: 12px;
 }
   
@@ -51,5 +56,5 @@
 
 .form a {
   text-decoration: none;
-  color: #252525;
+  color: var(--link-clr);
 }
