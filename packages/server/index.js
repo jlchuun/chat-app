@@ -1,6 +1,7 @@
 const express = require("express");
 const { WebSocketServer } = require("ws");
 const authRouter = require("./routers/authRouter");
+const cors = require("cors");
 
 const app = express();
 const server = require("http").createServer(app);
@@ -15,6 +16,12 @@ wss.on("connection", (ws) => {
     ws.send("Sent from WebSocket server");
 })
 
+const corsOptions = {
+    credentials: true,
+    origin: "http://localhost:3000"
+}
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/auth", authRouter);
 
