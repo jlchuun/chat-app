@@ -8,8 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 library.add(faToggleOn, faToggleOff);
 
-
-
 const App = () => {
   const [theme, setTheme] = useState("lightMode");
   const [themeIcon, setThemeIcon] = useState("fa-toggle-off");
