@@ -53,6 +53,7 @@
   
 .form .error {
   margin: .5em 0; 
+  color: var(--msg-clr);
 }
 
 .form a {
