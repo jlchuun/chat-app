@@ -10,7 +10,30 @@ const Register = () => {
     const { register, formState: { errors }, handleSubmit } = useForm({
         resolver: yupResolver(registerSchema)
     });
-    const onSubmit = data => console.log(data);
+    const onSubmit = values => {
+        console.log(values);
+        fetch("http://localhost:4000/auth/register", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values)
+        })
+        .then(res => {
+            if (!res || !res.ok || res.status >= 400) {
+                return;
+            }
+        return res.json();
+        })
+        .then(data => {
+            if (!data) return;
+            console.log(data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
 
     return (
         <div className={styles.registerPage}>
