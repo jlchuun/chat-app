@@ -9,7 +9,6 @@ const validateForm = (req, res, schema) => {
         .then(valid => {
             if (valid) {
                 console.log("Good data")
-                res.status(200).send();
             }
         });
 }
