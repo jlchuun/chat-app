@@ -1,4 +1,4 @@
-import * as yup from "yup";
+const yup = require("yup");
 
 const loginSchema = yup.object({
         username: yup.string().required("Username is required"),
@@ -22,4 +22,4 @@ const registerSchema = yup.object({
             .oneOf([yup.ref("password"), null], "Passwords must match")
     }).required();
 
-export { loginSchema, registerSchema };
+module.exports = { loginSchema, registerSchema };
