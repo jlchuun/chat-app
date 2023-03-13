@@ -21,6 +21,7 @@
 .env.test.local
 .env.production.local
 /packages/client/.env
+/packages/server/.env
 
 # yarn
 .pnp.*
