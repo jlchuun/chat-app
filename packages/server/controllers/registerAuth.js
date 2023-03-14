@@ -12,7 +12,7 @@ const registerAuth = async (req, res) => {
         // register if new username and email
         const passHash = await bcrypt.hash(req.body.password, 10);
         const newUser = await pool.query(
-            "INSERT INTO users(email, username, passwordHash) values ($1, $2, $3) RETURNING id, username",
+            "INSERT INTO users(email, username, password_hash) values ($1, $2, $3) RETURNING id, username",
             [req.body.email, req.body.username, passHash]
         );
         console.log(req.body.password);
