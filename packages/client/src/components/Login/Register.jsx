@@ -40,7 +40,7 @@ const Register = () => {
             <div className={styles.form}>
                 <form className={styles.registerForm} onSubmit={handleSubmit(onSubmit)}>
                     <p className={styles.error}>{errors.email?.message}</p>
-                    <input {...register("email")} placeholder="email"/>
+                    <input type="email" {...register("email")} placeholder="email"/>
                     <p className={styles.error}>{errors.username?.message}</p>
                     <input {...register("username")} 
                         placeholder="username"/>
