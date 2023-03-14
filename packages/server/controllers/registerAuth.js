@@ -4,16 +4,16 @@ const jwt = require("jsonwebtoken");
 
 const registerAuth = async (req, res) => {
     const existingUser = await pool.query(
-        "SELECT username from users WHERE username=$1", 
-        [req.body.username]
+        "SELECT email, username from users WHERE email=$1 AND username=$2", 
+        [req.body.email, req.body.username]
     );
 
     if (existingUser.rowCount === 0) {
-        // register if username not taken
+        // register if new username and email
         const passHash = await bcrypt.hash(req.body.password, 10);
         const newUser = await pool.query(
-            "INSERT INTO users(username, passwordHash) values ($1, $2) RETURNING id, username",
-            [req.body.username, passHash]
+            "INSERT INTO users(email, username, passwordHash) values ($1, $2, $3) RETURNING id, username",
+            [req.body.email, req.body.username, passHash]
         );
         console.log(req.body.password);
 
