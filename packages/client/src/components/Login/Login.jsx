@@ -1,6 +1,6 @@
 import styles from "./Login.module.css";
 import { useForm } from "react-hook-form";
-import { Link }  from "react-router-dom";
+import { Link, useNavigate }  from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from "@chat-app/common";
 
@@ -9,6 +9,9 @@ const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm({
         resolver: yupResolver(loginSchema)
     });
+
+    const navigate = useNavigate();
+
     const onSubmit = values => {
         console.log(values);
         fetch("http://localhost:4000/auth/login", {
@@ -28,6 +31,7 @@ const Login = () => {
         .then(data => {
             if (!data) return;
             console.log(data);
+            navigate("/home");
         })
         .catch(err => {
             console.log(err);
