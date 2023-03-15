@@ -35,6 +35,7 @@ const loginAuth = async (req, res) => {
                 });
                 return;
             }
+            console.log(token);
             res.json({ loggedIn: true, token });
         }); 
 }

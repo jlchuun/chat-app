@@ -5,6 +5,7 @@ import "./vars.css";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UserContext from "./components/AccountContext";
 
 library.add(faToggleOn, faToggleOff);
 
@@ -32,7 +33,9 @@ const App = () => {
   return (
     <div>
       <FontAwesomeIcon className={styles.themeToggle} onClick={toggleTheme} icon={themeIcon} size="3x" />
-      <Views />
+      <UserContext>
+        <Views />
+      </UserContext>
     </div>
   );
 }

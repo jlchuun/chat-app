@@ -2,9 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./Login/Login";
 import Register from "./Login/Register";
 import ProtectedRoutes from "./ProtectedRoutes";
+import { AccountContext } from "./AccountContext";
+import { useContext } from "react";
 
 const Views = () => {
-    return (
+    const { user } = useContext(AccountContext);
+    return user.loggedIn === null ? (
+        ""
+    ) : (
         <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -14,6 +19,6 @@ const Views = () => {
             </Route>
         </Routes>
     );
-}
+};
 
 export default Views;

@@ -3,17 +3,27 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate }  from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from "@chat-app/common";
+import { AccountContext } from "../AccountContext";
+import { useContext, useState } from "react";
 
 
 const Login = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm({
+    const { 
+        register, 
+        formState: { errors }, 
+        handleSubmit,
+        reset 
+    } = useForm({
         resolver: yupResolver(loginSchema)
     });
 
     const navigate = useNavigate();
+    const { setUser } = useContext(AccountContext);
+    const [error, setError] = useState(null);
 
-    const onSubmit = values => {
+    const onSubmit = (values) => {
         console.log(values);
+        reset();
         fetch("http://localhost:4000/auth/login", {
             method: "POST",
             credentials: "include",
@@ -30,8 +40,14 @@ const Login = () => {
         })
         .then(data => {
             if (!data) return;
-            console.log(data);
-            navigate("/home");
+            setUser({...data})
+            if (data.status) {
+                setError(data.status);
+            } else {
+                console.log(data);
+                localStorage.setItem("token", data.token);
+                navigate("/home");
+            }
         })
         .catch(err => {
             console.log(err);
@@ -41,6 +57,7 @@ const Login = () => {
     return (
         <div className={styles.loginPage}>
             <div className={styles.form}>
+                <p className={styles.error}>{error}</p>
                 <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
                     <p className={styles.error}>{errors.username?.message}</p>
                     <input type="text" {...register("username")} placeholder="username"/>
