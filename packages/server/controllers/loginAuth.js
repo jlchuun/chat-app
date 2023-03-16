@@ -1,6 +1,5 @@
 const pool = require("../models/db.js");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const loginAuth = async (req, res) => {
     const logAttempt = await pool.query(
@@ -19,25 +18,12 @@ const loginAuth = async (req, res) => {
         })
     }
 
-    const userToken = {
-        username: logAttempt.rows[0].username,
+    req.session.user = {
+        username: req.body.username,
         id: logAttempt.rows[0].id
     };
-
-    jwt.sign(
-        userToken, process.env.SECRET,
-        { expiresIn: "1min" },
-        (err, token) => {
-            if (err) {
-                res.json({
-                    loggedIn: false,
-                    status: "Error occurred, try again later",
-                });
-                return;
-            }
-            console.log(token);
-            res.json({ loggedIn: true, token });
-        }); 
+    
+    res.json({ loggedIn: true, username: req.body.username });
 }
 
 module.exports = loginAuth;

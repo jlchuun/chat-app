@@ -17,25 +17,13 @@ const registerAuth = async (req, res) => {
         );
         console.log(req.body.password);
 
-        
-        const userToken = {
-            username: newUser.rows[0].username,
+        req.session.user = {
+            username: req.body.username,
             id: newUser.rows[0].id
         };
+        
+        res.json({ loggedIn: true, username: req.body.username });
 
-        jwt.sign(
-            userToken, process.env.SECRET,
-            { expiresIn: "1min" },
-            (err, token) => {
-                if (err) {
-                    res.json({
-                        loggedIn: false,
-                        status: "Error occurred, try again later",
-                    });
-                    return;
-                }
-                res.json({ loggedIn: true, token });
-            }); 
     } else {
         res.json({ loggedIn: false, status: "Username taken" });
     }

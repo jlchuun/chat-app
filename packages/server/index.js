@@ -2,7 +2,8 @@ const express = require("express");
 const { WebSocketServer } = require("ws");
 const authRouter = require("./routers/authRouter");
 const cors = require("cors");
-
+const session = require("express-session");
+require("dotenv").config();
 const app = express();
 const server = require("http").createServer(app);
 
@@ -23,6 +24,21 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(
+    session({
+        secret: process.env.SECRET,
+        credentials: true,
+        name: "sid",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: process.env.ENVIRONMENT === "production" ? "true" : "false",
+            httpOnly: true,
+            sameSite: process.env.ENVIRONMENT === "production" ? "none": "lax",
+            maxAge: 60000,    // 1 min
+        },
+    })
+);
 app.use("/auth", authRouter);
 
 server.listen(4000, () => {
