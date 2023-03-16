@@ -1,6 +1,5 @@
 const pool = require("../models/db.js");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const registerAuth = async (req, res) => {
     const existingUser = await pool.query(
@@ -21,7 +20,7 @@ const registerAuth = async (req, res) => {
             username: req.body.username,
             id: newUser.rows[0].id
         };
-        
+
         res.json({ loggedIn: true, username: req.body.username });
 
     } else {
