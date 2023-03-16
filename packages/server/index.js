@@ -1,9 +1,23 @@
 const express = require("express");
 const { WebSocketServer } = require("ws");
 const authRouter = require("./routers/authRouter");
+const redis = require("ioredis");
 const cors = require("cors");
 const session = require("express-session");
+const RedisStore = require("connect-redis").default;
 require("dotenv").config();
+
+const redisClient = redis.createClient();
+
+
+redisClient.on("error", (err) => {
+    console.log("Error establishing redis connection" + err);
+});
+
+redisClient.on("connect", (err) => {
+    console.log("Redis Connection established");
+});
+
 const app = express();
 const server = require("http").createServer(app);
 
@@ -26,6 +40,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(
     session({
+        store: new RedisStore({ client: redisClient }),
         secret: process.env.SECRET,
         credentials: true,
         name: "sid",
