@@ -23,7 +23,7 @@ const UserContext = ({ children }) => {
             return;
         })
         .then(res => {
-            if (!res.ok) {
+            if (!res || !res.ok) {
                 setUser({ loggedIn: false });
                 return;
             }

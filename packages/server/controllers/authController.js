@@ -10,7 +10,7 @@ const handleLogin = (req, res) => {
     }
 };
 
-const loginAuth = async (req, res, next) => {
+const loginAuth = async (req, res) => {
     const logAttempt = await pool.query(
         "SELECT id, username, password_hash FROM users a WHERE a.username=$1", 
         [req.body.username]

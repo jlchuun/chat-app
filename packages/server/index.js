@@ -1,13 +1,13 @@
 const express = require("express");
 const { WebSocketServer } = require("ws");
 const authRouter = require("./routers/authRouter");
-const redis = require("ioredis");
+const Redis = require("./redis");
 const cors = require("cors");
 const session = require("express-session");
 const RedisStore = require("connect-redis").default;
 require("dotenv").config();
 
-const redisClient = redis.createClient();
+const redisClient = Redis;
 
 
 redisClient.on("error", (err) => {

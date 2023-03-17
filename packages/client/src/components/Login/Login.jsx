@@ -45,7 +45,6 @@ const Login = () => {
                 setError(data.status);
             } else {
                 console.log(data);
-                localStorage.setItem("token", data.token);
                 navigate("/home");
             }
         })
