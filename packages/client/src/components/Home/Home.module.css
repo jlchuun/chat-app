@@ -12,16 +12,16 @@ HOME LAYOUT
     height: 100dvh;
 }
 
+header {
+    justify-content: space-between;
+}
+
 .sidebar {
     flex: 1;
-    border: 1px red solid;
     max-width: 30%;
     height: 100%;
 }
 
-.user {
-    border: 1px blue solid;
-}
 
 /*
 
@@ -32,8 +32,9 @@ CHAT AREA
 .chatArea {
     flex: 1;
     max-width: 70%;
-    border: 1px blue solid;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .stickyUser {
@@ -41,6 +42,46 @@ CHAT AREA
     position: sticky;
 }
 
+.chatMsg {
+    display: flex;
+    margin: 1rem;
+    max-width: 50%;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+}
+
+.chatMsg .msgContent {
+    padding: .4rem 1rem;
+    text-align: start;
+    font-size: 1.2rem;
+}
+
+.receiver {
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    margin: 1rem auto 1rem 1rem;
+    background: #FFF;
+    color: #333;
+    border-radius: 1.125rem 1.125rem 1.125rem 0;
+
+}
+
+.sender {
+    border-radius: 1.125rem 1.125rem 0 1.125rem;
+    align-items: flex-start;
+    background: #333;
+    color: white;
+    margin: 1rem 1rem 1rem auto;
+}
+
+.chatArea input {
+    margin-top: auto;
+    width: 100%;
+    bottom: 0;
+    /* border: none; */
+    outline: none;
+    height: 4rem;
+    font-size: 1.3rem;
+}
 
 
 /*

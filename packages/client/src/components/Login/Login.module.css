@@ -1,5 +1,9 @@
 @import "../../vars.css";
 
+.themeToggle {
+  margin: 1rem;
+}
+
 .loginPage, .registerPage {
   position: relative;
     z-index: 0;

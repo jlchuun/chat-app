@@ -6,12 +6,27 @@ import User from "./User";
 const Home = () => {
     return (
         <div className={styles.container}>
-            <ToggleTheme />
             <a href="test" className={`${styles.button}`}>Logout</a>
+            <ToggleTheme />
             <Sidebar />
             <div className={styles.chatArea}>
                 <div className={styles.stickyUser}><User /></div>
-                <div>CHAT AREA</div>
+                <div className={`${styles.chatMsg} ${styles.receiver}`}>
+                    <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
+                </div>
+                <div className={`${styles.chatMsg} ${styles.sender}`}>
+                    <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
+                </div> 
+                <div className={`${styles.chatMsg} ${styles.sender}`}>
+                    <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
+                </div> 
+                <div className={`${styles.chatMsg} ${styles.receiver}`}>
+                    <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
+                </div>
+                <div className={`${styles.chatMsg} ${styles.sender}`}>
+                    <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
+                </div> 
+                <input type="text" placeholder="Enter your message"></input>
             </div>
         </div>
     )
