@@ -25,8 +25,40 @@ const Home = () => {
                 </div>
                 <div className={`${styles.chatMsg} ${styles.sender}`}>
                     <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
+                </div>
+                <div className={`${styles.chatMsg} ${styles.receiver}`}>
+                    <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
+                </div>
+                <div className={`${styles.chatMsg} ${styles.sender}`}>
+                    <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
                 </div> 
-                <input type="text" placeholder="Enter your message"></input>
+                <div className={`${styles.chatMsg} ${styles.sender}`}>
+                    <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
+                </div> 
+                <div className={`${styles.chatMsg} ${styles.receiver}`}>
+                    <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
+                </div>
+                <div className={`${styles.chatMsg} ${styles.sender}`}>
+                    <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
+                </div> 
+                <div className={`${styles.chatMsg} ${styles.receiver}`}>
+                    <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
+                </div>
+                <div className={`${styles.chatMsg} ${styles.sender}`}>
+                    <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
+                </div> 
+                <div className={`${styles.chatMsg} ${styles.sender}`}>
+                    <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
+                </div> 
+                <div className={`${styles.chatMsg} ${styles.receiver}`}>
+                    <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
+                </div>
+                <div className={`${styles.chatMsg} ${styles.sender}`}>
+                    <p className={styles.msgContent}> testing Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
+                </div>
+                <div className={styles.input}>
+                    <textarea type="text" placeholder="Enter your message" />
+                </div>
             </div>
         </div>
     )

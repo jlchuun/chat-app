@@ -35,6 +35,8 @@ CHAT AREA
     text-align: center;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: thin;
 }
 
 .stickyUser {
@@ -73,14 +75,25 @@ CHAT AREA
     margin: 1rem 1rem 1rem auto;
 }
 
-.chatArea input {
-    margin-top: auto;
-    width: 100%;
+.input {
+    display: flex;
+    position: sticky;
     bottom: 0;
-    /* border: none; */
+    background: #fff;
+}
+
+.chatArea textarea {
+    margin-top: auto;
     outline: none;
-    height: 4rem;
+    resize: none;
+    min-height: 3rem;
     font-size: 1.3rem;
+    margin: 1rem;
+    flex: 1;
+    border: none;
+    border-radius: 1.2rem;
+    padding: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.2);
 }
 
 
@@ -103,6 +116,7 @@ USER LIST ITEM
 
 .userItem {
     max-height: 6em;
+    background-color: #fff;
 }
 
 .itemBox {
