@@ -4,13 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import styles from "../App.module.css";
 
-
-
 library.add(faToggleOn, faToggleOff);
 
 const ToggleTheme = () => {
-    const [theme, setTheme] = useState("lightMode");
-    const [themeIcon, setThemeIcon] = useState("fa-toggle-off");
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "lightMode");
+    const [themeIcon, setThemeIcon] = useState(theme === "lightMode" ? "fa-toggle-off" : "fa-toggle-on");
 
     const toggleTheme = () => {
         if (theme === "lightMode") {
@@ -21,6 +19,7 @@ const ToggleTheme = () => {
         setThemeIcon("fa-toggle-off");
         }
     }
+
 
     useEffect(() => {
         localStorage.setItem("theme", theme);
