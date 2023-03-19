@@ -1,0 +1,91 @@
+@import "../../vars.css";
+
+
+/*
+
+HOME LAYOUT
+
+*/
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    border: 1px red solid;
+    min-width: 30%;
+}
+
+.user {
+    border: 1px blue solid;
+}
+
+/*
+
+CHAT AREA
+
+*/
+
+.chatArea {
+    min-width: 70%;
+    border: 1px blue solid;
+    text-align: center;
+}
+
+.stickyUser {
+    top: 0;
+    position: sticky;
+}
+
+
+/*
+
+USER LIST ITEM
+
+*/
+
+.itemBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--inp-clr);
+    padding: .3rem .5rem;
+}
+
+.itemBox:hover {
+    background: #e9ecf1;
+    cursor: pointer;
+}
+
+.itemLeft {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: calc(80%);
+}
+
+.itemLeft img {
+    border-radius: 50%;
+    height: 3em;
+    width: 3em;
+    margin: .5rem;
+    margin-right: 1rem;
+}
+
+.status::before {
+    content: "";
+    position: absolute;
+    width: .5em;
+    height: .5em;
+    border-radius: 50%;
+    background-color: green;
+    left: -.6rem;
+    top: .3rem;
+}
+
+.status {
+    position: relative;
+    margin: 1rem .2rem;
+}
