@@ -8,7 +8,7 @@ const  User = () => {
                     <img src="https://i.imgur.com/Ctwf8HA.png" alt="prof" />
                     <div className={styles.info}>
                         <p>Joshua</p>
-                        <p><i>last message alsdjflaksjd f asdfjaklsdfslakd end</i></p>
+                        <p><i>last seen</i></p>
                     </div>
                 </div>
                 
