@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from "@chat-app/common";
 import { AccountContext } from "../AccountContext";
 import { useContext, useState } from "react";
+import ToggleTheme from "../ToggleTheme";
 
 
 const Login = () => {
@@ -55,6 +56,7 @@ const Login = () => {
     
     return (
         <div className={styles.loginPage}>
+            <ToggleTheme />
             <div className={styles.form}>
                 <p className={styles.error}>{error}</p>
                 <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
