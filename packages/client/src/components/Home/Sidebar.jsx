@@ -1,7 +1,9 @@
 import styles from "./Home.module.css";
-import User from "./User";
+import { FriendContext } from "./Home";
+import { useContext } from "react";
 
 const Sidebar = () => {
+    const { friendsList, setFriendsList } = useContext(FriendContext);
     return (
         <aside className={styles.sidebar}>
             <form className={styles.addFriend}>
@@ -10,10 +12,7 @@ const Sidebar = () => {
                 <button type="submit">Send Friend Request</button>
             </form>
             <ul>
-                <User />
-                <User />
-                <User />
-                <User />
+                {friendsList}
             </ul>
         </aside>
     )
