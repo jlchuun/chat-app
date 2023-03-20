@@ -105,7 +105,27 @@ SIDEBAR
 
 .sidebar {
     overflow-y: scroll;
+    font-size: 1.1rem;
 }
+
+/*
+
+Add Friend Popup
+
+*/
+
+
+.addFriend {
+    border: 1px solid red;
+
+}
+
+
+.addFriend input {
+    border-radius: 30px;
+    margin: .5rem;
+}
+
 
 
 /*
