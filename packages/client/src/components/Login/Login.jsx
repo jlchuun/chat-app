@@ -124,7 +124,7 @@ const Login = () => {
                 </form>
             </Box>
             <Link component={RouterLink} to="/register" variant="body2">
-                "Don't have an account? Register Here"
+                {"Don't have an account? Register Here"}
             </Link>
         </Container>
     
