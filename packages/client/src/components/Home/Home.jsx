@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import ToggleTheme from "../ToggleTheme";
 import styles from "./Home.module.css";
 import Sidebar from "./Sidebar";
 import User from "./User";
@@ -7,13 +6,12 @@ import User from "./User";
 export const FriendContext = createContext();
 
 const Home = () => {
-    const [friendsList, setFriendsList] = useState([<User />, <User />, <User/>]);
+    const [friendsList, setFriendsList] = useState(<User/>);
 
     return (
         <FriendContext.Provider value={{ friendsList, setFriendsList }}>
             <div className={styles.container}>
                 <a href="test" className={`${styles.button}`}>Logout</a>
-                <ToggleTheme />
                 <Sidebar />
                 <div className={styles.chatArea}>
                     <div className={styles.stickyUser}><User /></div>
