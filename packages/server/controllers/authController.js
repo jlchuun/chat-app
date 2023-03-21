@@ -38,7 +38,7 @@ const loginAuth = async (req, res) => {
 
 const registerAuth = async (req, res) => {
     const existingUser = await pool.query(
-        "SELECT email, username from users WHERE email=$1 AND username=$2", 
+        "SELECT email, username from users WHERE email=$1 OR username=$2", 
         [req.body.email, req.body.username]
     );
 
@@ -58,8 +58,10 @@ const registerAuth = async (req, res) => {
 
         res.json({ loggedIn: true, username: req.body.username });
 
+    } else if (existingUser.rows[0].email !== null) {
+        res.json({ loggedIn: false, status: "Email already in use" });
     } else {
-        res.json({ loggedIn: false, status: "Username taken" });
+        res.json({ loggedIn: false, status: "Username is taken" });
     }
 };
 
