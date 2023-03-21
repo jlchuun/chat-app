@@ -5,13 +5,11 @@ import { loginSchema } from "@chat-app/common";
 import { AccountContext } from "../AccountContext";
 import { useContext, useState } from "react";
 
-
 import { Alert, Container, TextField, Button, Link, Box } from "@mui/material/";
 
 const Login = () => {
     const { 
         control,
-        register, 
         formState: { errors }, 
         handleSubmit,
         reset 
@@ -120,27 +118,12 @@ const Login = () => {
                     >
                         Login
                     </Button>
-                    
                 </form>
             </Box>
             <Link component={RouterLink} to="/register" variant="body2">
                 {"Don't have an account? Register Here"}
             </Link>
         </Container>
-    
-        // <div className={styles.loginPage}>
-        //     <div className={styles.form}>
-        //         <p className={styles.error}>{error}</p>
-        //         <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
-        //             <p className={styles.error}>{errors.username?.message}</p>
-        //             <input type="text" {...register("username")} placeholder="username"/>
-        //             <p className={styles.error}>{errors.password?.message}</p>
-        //             <input type="password" {...register("password")} placeholder="password"/>
-        //             <button type="submit">Login</button>
-        //             <p className={styles.message}>Don't have an account? <Link to="register">Register here</Link></p>
-        //         </form>
-        //     </div>
-        // </div>
     );
 }
 
