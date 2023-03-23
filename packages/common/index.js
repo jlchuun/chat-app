@@ -1,5 +1,12 @@
 const yup = require("yup");
 
+const friendSchema = yup.object({
+    username: yup.string()
+        .required("Username is required")
+        .min(6, "Username is too short")
+        .max(20, "Username is too long")
+}).required();
+
 const loginSchema = yup.object({
         username: yup.string().required("Username is required"),
         password: yup.string().required("Password is required")
@@ -22,4 +29,4 @@ const registerSchema = yup.object({
             .oneOf([yup.ref("password"), null], "Passwords must match")
     }).required();
 
-module.exports = { loginSchema, registerSchema };
+module.exports = { loginSchema, registerSchema, friendSchema };
