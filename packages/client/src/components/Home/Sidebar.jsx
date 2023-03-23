@@ -1,20 +1,40 @@
-import styles from "./Home.module.css";
 import { FriendContext } from "./Home";
-import { useContext } from "react";
+import { createContext, useContext, useState } from "react";
+import User from "./User";
 
-const Sidebar = () => {
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import { Typography, Button, List, Stack, Tabs, Tab } from "@mui/material";
+
+
+const Sidebar = ({ value, setValue }) => {
     const { friendsList, setFriendsList } = useContext(FriendContext);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     return (
-        <aside className={styles.sidebar}>
-            <form className={styles.addFriend}>
-                <label>Add Friend</label>
-                <input type="text" placeholder="Enter username" required></input>
-                <button type="submit">Send Friend Request</button>
-            </form>
-            <ul>
-                {friendsList}
-            </ul>
-        </aside>
+        <Stack spacing={1.5} sx={{borderRight: 1, borderColor: "divider"}}>
+            <Stack direction="row" spacing={5}>
+                <Typography component="h2" variant="h5">
+                    Add Friend
+                </Typography>
+                <Button size="small" variant="contained">
+                    <PersonAddAlt1Icon></PersonAddAlt1Icon>
+                </Button>
+            </Stack>
+            <Tabs
+            orientation="vertical"
+            variant="scrollable"
+            aria-label="Conversations"
+            value={value} 
+            onChange={handleChange}
+            sx={{ borderRight: 1, borderColor: 'divider '}}>
+                <Tab label={<User/>} />
+                <Tab label={<User/>} />
+                <Tab label={<User/>} />
+            </Tabs>
+        </Stack>
     )
 }
 

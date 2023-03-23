@@ -1,70 +1,67 @@
 import { createContext, useState } from "react";
-import styles from "./Home.module.css";
 import Sidebar from "./Sidebar";
 import User from "./User";
+import ChatMsg from "./ChatMsg";
+
+import PropTypes from 'prop-types';
+import { Box, Typography } from "@mui/material";
 
 export const FriendContext = createContext();
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+  
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
 
 const Home = () => {
     const [friendsList, setFriendsList] = useState(<User/>);
+    const [value, setValue] = useState(0);
 
     return (
         <FriendContext.Provider value={{ friendsList, setFriendsList }}>
-            <div className={styles.container}>
-                <a href="test" className={`${styles.button}`}>Logout</a>
-                <Sidebar />
-                <div className={styles.chatArea}>
-                    <div className={styles.stickyUser}><User /></div>
-                    <div className={`${styles.chatMsg} ${styles.receiver}`}>
-                        <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
-                    </div>
-                    <div className={`${styles.chatMsg} ${styles.sender}`}>
-                        <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
-                    </div> 
-                    <div className={`${styles.chatMsg} ${styles.sender}`}>
-                        <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
-                    </div> 
-                    <div className={`${styles.chatMsg} ${styles.receiver}`}>
-                        <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
-                    </div>
-                    <div className={`${styles.chatMsg} ${styles.sender}`}>
-                        <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
-                    </div>
-                    <div className={`${styles.chatMsg} ${styles.receiver}`}>
-                        <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
-                    </div>
-                    <div className={`${styles.chatMsg} ${styles.sender}`}>
-                        <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
-                    </div> 
-                    <div className={`${styles.chatMsg} ${styles.sender}`}>
-                        <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
-                    </div> 
-                    <div className={`${styles.chatMsg} ${styles.receiver}`}>
-                        <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
-                    </div>
-                    <div className={`${styles.chatMsg} ${styles.sender}`}>
-                        <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
-                    </div> 
-                    <div className={`${styles.chatMsg} ${styles.receiver}`}>
-                        <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
-                    </div>
-                    <div className={`${styles.chatMsg} ${styles.sender}`}>
-                        <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
-                    </div> 
-                    <div className={`${styles.chatMsg} ${styles.sender}`}>
-                        <p className={styles.msgContent}>Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
-                    </div> 
-                    <div className={`${styles.chatMsg} ${styles.receiver}`}>
-                        <p className={styles.msgContent}>Content asdf asd fasdf asdf asdf asdfasdfas dfasdf asd asdfasd fasd fasd fasdf asd fas dfas dfas dfasdf ad</p>
-                    </div>
-                    <div className={`${styles.chatMsg} ${styles.sender}`}>
-                        <p className={styles.msgContent}> testing Contasdf aasdasdfasdfasdfasdfasdfasdfsadf asdfasdfasdfasdfasdfasdfasdf asdfasd fasd fasdf asdfasdfasdfsadfd</p>
-                    </div>
-                    <div className={styles.input}>
-                        <textarea type="text" placeholder="Enter your message" />
-                    </div>
-                </div>
-            </div>
+            <Box display="grid" gridTemplateColumns="repeat(10, 1fr)" height="100dvh">
+                <Box gridColumn="span 3">
+                    <Sidebar value={value} setValue={setValue} />
+                </Box>
+                <Box gridColumn="span 7" >
+                    <TabPanel value={value} index={0}>
+                        Friend 1
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        Friend 2
+                    </TabPanel>
+                    <TabPanel value={value} index={2}>
+                        Friend 3
+                    </TabPanel>
+                </Box>
+            </Box>
         </FriendContext.Provider>
     )
 }
