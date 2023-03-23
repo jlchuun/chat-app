@@ -32,16 +32,12 @@ function TabPanel(props) {
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
   };
-  
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
 
 const Home = () => {
-    const [friendsList, setFriendsList] = useState(<User/>);
+    const [friendsList, setFriendsList] = useState([
+        {username: "Josh Lee", status: "online"},
+        {username: "Samuel Smith", status: "offline"}
+    ]);
     const [value, setValue] = useState(0);
 
     return (
