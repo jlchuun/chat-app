@@ -31,7 +31,7 @@ const loginAuth = async (req, res) => {
         username: req.body.username,
         id: logAttempt.rows[0].id
     };
-    
+
     res.json({ loggedIn: true, username: req.body.username });
 }
 

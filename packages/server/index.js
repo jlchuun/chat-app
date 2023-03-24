@@ -21,15 +21,19 @@ redisClient.on("connect", (err) => {
 const app = express();
 const server = require("http").createServer(app);
 
-const wss = new WebSocketServer({ server });
-wss.on("connection", (ws) => {
-    ws.on("message", (message) => {
-        console.log("received: %s", message);
-        ws.send(`You sent: ${message}`);
-    });
-
-    ws.send("Sent from WebSocket server");
-})
+const sessionParser = session({
+    store: new RedisStore({ client: redisClient }),
+    secret: process.env.SECRET,
+    credentials: true,
+    name: "sid",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: 60000,    // 1 min * 5
+    },
+});
 
 const corsOptions = {
     credentials: true,
@@ -38,22 +42,33 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(
-    session({
-        store: new RedisStore({ client: redisClient }),
-        secret: process.env.SECRET,
-        credentials: true,
-        name: "sid",
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            secure: false,
-            httpOnly: true,
-            maxAge: 60000,    // 1 min
-        },
-    })
-);
+app.use(sessionParser);
 app.use("/auth", authRouter);
+
+const wss = new WebSocketServer({ clientTracking: false, noServer: true });
+
+server.on("upgrade", (req, socket, head) => {
+    console.log("Parsing session");
+    sessionParser(req, {}, () => {
+        if (!req.session.user) {
+            socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+            socket.destroy();
+            return;
+        }
+        console.log("session parsed");
+        console.log(req.session.user.username);
+        wss.handleUpgrade(req, socket, head, (ws) => {
+            wss.emit("connection", ws, req);
+        });
+    });
+});
+
+wss.on("connection", (ws, req) => {
+    ws.on("message", (message) => {
+        console.log(message + " from " + req.session.user);
+    }) 
+})
+
 
 server.listen(4000, () => {
     console.log("Server listening on port 4000");

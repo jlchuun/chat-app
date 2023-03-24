@@ -92,11 +92,8 @@ const Sidebar = ({ value, setValue }) => {
                                     />
                                     <Button type="submit" variant="contained">Send friend request</Button>
                                 </Stack> 
-                            </form>
-                            
-                            
+                            </form> 
                         </Box>
-                        
                 </Modal>
             </Stack>
             <Tabs
@@ -107,7 +104,7 @@ const Sidebar = ({ value, setValue }) => {
                 onChange={handleChange}
                 sx={{ borderRight: 1, borderColor: 'divider '}}>
                     {friendsList.map(friend => (
-                        <Tab label={<User username={friend.username} />} />
+                        <Tab label={<User username={friend.username} />} key={friend.id}/>
                     ))}
             </Tabs>
         </Stack>

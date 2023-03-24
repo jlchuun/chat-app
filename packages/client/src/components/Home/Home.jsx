@@ -1,7 +1,6 @@
 import { createContext, useState } from "react";
 import Sidebar from "./Sidebar";
-import User from "./User";
-import ChatMsg from "./ChatMsg";
+import useSocket from "./useSocket";
 
 import PropTypes from 'prop-types';
 import { Box, Typography } from "@mui/material";
@@ -34,6 +33,7 @@ function TabPanel(props) {
   };
 
 const Home = () => {
+    useSocket();
     const [friendsList, setFriendsList] = useState([
         {username: "Josh Lee", status: "online"},
         {username: "Samuel Smith", status: "offline"}
