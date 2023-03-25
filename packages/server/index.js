@@ -8,7 +8,8 @@ const RedisStore = require("connect-redis").default;
 require("dotenv").config();
 
 const redisClient = Redis;
-
+// store userid for each socket
+const userMap = new Map();
 
 redisClient.on("error", (err) => {
     console.log("Error establishing redis connection" + err);
@@ -62,9 +63,17 @@ server.on("upgrade", (req, socket, head) => {
 });
 
 wss.on("connection", (ws, req) => {
+    const userid = req.session.userid;
+    userMap.set(userid, ws);
+
     ws.on("message", (message) => {
         console.log(message + " from " + req.session.user);
     }) 
+
+    ws.on("close", () => {
+        userMap.delete(userid);
+    })
+
 })
 
 

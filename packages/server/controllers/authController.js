@@ -1,6 +1,7 @@
 require("dotenv").config();
 const pool = require("../models/db");
 const bcrypt = require("bcrypt");
+const {v4: uuidv4 } = require("uuid");
 
 const handleLogin = (req, res) => {
     if (req.session.user && req.session.user.username) {
@@ -12,7 +13,7 @@ const handleLogin = (req, res) => {
 
 const loginAuth = async (req, res) => {
     const logAttempt = await pool.query(
-        "SELECT id, username, password_hash FROM users a WHERE a.username=$1", 
+        "SELECT id, userid, username, password_hash FROM users a WHERE a.username=$1", 
         [req.body.username]
     );
 
@@ -29,7 +30,8 @@ const loginAuth = async (req, res) => {
 
     req.session.user = {
         username: req.body.username,
-        id: logAttempt.rows[0].id
+        id: logAttempt.rows[0].id,
+        userid: logAttempt.rows[0].userid
     };
 
     res.json({ loggedIn: true, username: req.body.username });
@@ -46,14 +48,15 @@ const registerAuth = async (req, res) => {
         // register if new username and email
         const passHash = await bcrypt.hash(req.body.password, 10);
         const newUser = await pool.query(
-            "INSERT INTO users(email, username, password_hash) values ($1, $2, $3) RETURNING id, username",
-            [req.body.email, req.body.username, passHash]
+            "INSERT INTO users(email, username, password_hash, userid) values ($1, $2, $3, $4) RETURNING id, username, userid",
+            [req.body.email, req.body.username, passHash, uuidv4()]
         );
         console.log(req.body.password);
 
         req.session.user = {
             username: req.body.username,
-            id: newUser.rows[0].id
+            id: newUser.rows[0].id,
+            userid: newUser.rows[0].userid
         };
 
         res.json({ loggedIn: true, username: req.body.username });
