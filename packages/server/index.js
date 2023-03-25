@@ -56,6 +56,12 @@ server.on("upgrade", (req, socket, head) => {
             socket.destroy();
             return;
         }
+        redisClient.hset(
+            `userid:${req.session.user.username}`,
+            "userid",
+            req.session.user.userid
+        );
+
         wss.handleUpgrade(req, socket, head, (ws) => {
             wss.emit("connection", ws, req);
         });
