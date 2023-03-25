@@ -55,8 +55,6 @@ server.on("upgrade", (req, socket, head) => {
             socket.destroy();
             return;
         }
-        console.log("session parsed");
-        console.log(req.session.user.username);
         wss.handleUpgrade(req, socket, head, (ws) => {
             wss.emit("connection", ws, req);
         });
