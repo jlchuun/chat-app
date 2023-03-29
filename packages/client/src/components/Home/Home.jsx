@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 
 import PropTypes from 'prop-types';
 import { Box, Typography } from "@mui/material";
+import useSocket from "./useSocket";
 
 export const FriendContext = createContext();
 export const SocketContext = createContext();
@@ -34,34 +35,30 @@ function TabPanel(props) {
   };
 
 const Home = () => {
-    const socket = new WebSocket("ws://localhost:4000");
-    const [friendsList, setFriendsList] = useState([
-        {username: "Josh Lee", status: "online"},
-        {username: "Samuel Smith", status: "offline"}
-    ]);
+    const [friendsList, setFriendsList] = useState([]);
     const [value, setValue] = useState(0);
+    useSocket(setFriendsList);
+    
 
     return (
-      <SocketContext.Provider value={{ socket }}>
-        <FriendContext.Provider value={{ friendsList, setFriendsList }}>
-          <Box display="grid" gridTemplateColumns="repeat(10, 1fr)" height="100dvh">
-            <Box gridColumn="span 3">
-              <Sidebar value={value} setValue={setValue} />
-            </Box>
-              <Box gridColumn="span 7" >
-                <TabPanel value={value} index={0}>
-                    Friend 1
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    Friend 2
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                    Friend 3
-                </TabPanel>
-              </Box>
+      <FriendContext.Provider value={{ friendsList, setFriendsList }}>
+        <Box display="grid" gridTemplateColumns="repeat(10, 1fr)" height="100dvh">
+          <Box gridColumn="span 3">
+            <Sidebar value={value} setValue={setValue}/>
           </Box>
-        </FriendContext.Provider>
-      </SocketContext.Provider>
+            <Box gridColumn="span 7" >
+              <TabPanel value={value} index={0}>
+                  Friend 1
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                  Friend 2
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                  Friend 3
+              </TabPanel>
+            </Box>
+        </Box>
+      </FriendContext.Provider>
     )
 }
 

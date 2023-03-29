@@ -1,14 +1,14 @@
 import { FriendContext } from "./Home";
 import { useContext, useState } from "react";
 import User from "./User";
-import { SocketContext } from "./Home";
+import socket from "../../socket";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { friendSchema } from "@chat-app/common";
 
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import { Typography, Button, Modal, Stack, Tabs, Tab, TextField, Box } from "@mui/material";
+import { Alert, Typography, Button, Modal, Stack, Tabs, Tab, TextField, Box } from "@mui/material";
 
 
 const style = {
@@ -25,13 +25,14 @@ const style = {
 
 const Sidebar = ({ value, setValue }) => {
     const { friendsList, setFriendsList } = useContext(FriendContext);
-    const [open, setOpen] = useState(false);
-    const { socket } = useContext(SocketContext);
 
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState(null);
     // open/close modal
     const handleOpen = () => setOpen(true);
     const handleClose = () =>  {
         reset();
+        setError(null);
         setOpen(false);
     }
     // handles tab change
@@ -43,12 +44,27 @@ const Sidebar = ({ value, setValue }) => {
 
     const addFriend = (values) => {
         reset();
-        handleClose();
-        socket.send(JSON.stringify({
-            event: "addFriend",
-            friendName: values.username
-        }));
-    }
+        socket.emit("addFriend", values.username, 
+        ({ status, message }) => {
+            if (status === "success") {
+                setFriendsList(friends => [values.username, ...friends]);
+                handleClose();
+                return;
+            }
+            setError(message);
+        });
+
+        socket.onmessage = (message) => {
+            const msg = JSON.parse(message.data);
+            console.log(msg);
+            if (msg.status === "success") {
+                setFriendsList(newFriend => [values.username, ...newFriend])
+                handleClose();
+                return;
+            }
+            setError(msg.message);
+        }
+    };
 
     const {
         control,
@@ -77,6 +93,7 @@ const Sidebar = ({ value, setValue }) => {
                         <Box sx={style}>
                             <form onSubmit={handleSubmit(addFriend)}>
                                <Stack spacing={3}>
+                                    {error !== null ? <Alert severity="error">{error}</Alert> : ""}
                                     <Typography component="h2" variant="h5">
                                         Add Friend
                                     </Typography>
@@ -112,7 +129,7 @@ const Sidebar = ({ value, setValue }) => {
                 onChange={handleChange}
                 sx={{ borderRight: 1, borderColor: 'divider '}}>
                     {friendsList.map(friend => (
-                        <Tab label={<User username={friend.username} />} key={friend.id}/>
+                        <Tab label={<User username={friend} />} key={friend}/>
                     ))}
             </Tabs>
         </Stack>
