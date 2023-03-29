@@ -1,15 +1,12 @@
 const express = require("express");
-const { WebSocketServer } = require("ws");
 const authRouter = require("./routers/authRouter");
 const redisClient = require("./redis");
 const cors = require("cors");
 const session = require("express-session");
 const RedisStore = require("connect-redis").default;
-const { initializeUser, addFriend }  = require("./controllers/socketController");
+const { Server } = require("socket.io");
+const { initializeUser, addFriend, authorizeUser }  = require("./controllers/socketController");
 require("dotenv").config();
-
-// store userid for each socket
-const userMap = new Map();
 
 redisClient.on("error", (err) => {
     console.log("Error establishing redis connection" + err);
@@ -41,45 +38,27 @@ const corsOptions = {
     origin: "http://localhost:3000"
 }
 
+const io = new Server(server, {
+    cors: corsOptions
+});
+
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(sessionParser);
 app.use("/auth", authRouter);
 
-const wss = new WebSocketServer({ clientTracking: false, noServer: true });
+const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 
-server.on("upgrade", (req, socket, head) => {
-    console.log("Parsing session");
-    sessionParser(req, {}, () => {
-        if (!req.session.user) {
-            socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
-            socket.destroy();
-            return;
-        }
-        initializeUser(req);
-        wss.handleUpgrade(req, socket, head, (ws) => {
-            wss.emit("connection", ws, req);
-        });
+io.use(wrap(sessionParser));
+io.use(authorizeUser);
+
+io.on("connect", socket => {
+    initializeUser(socket);
+
+    socket.on("addFriend", (friendName, cb) => {
+        addFriend(socket, friendName, cb);
     });
 });
-
-wss.on("connection", (ws, req) => {
-    const userid = req.session.userid;
-    userMap.set(userid, ws);
-
-    ws.on("message", (message) => {
-        const msg = JSON.parse(message);
-        if (msg.event === "addFriend") {
-            addFriend(msg.friendName);
-        }
-    }) 
-
-    ws.on("close", () => {
-        userMap.delete(userid);
-    })
-
-})
-
 
 server.listen(4000, () => {
     console.log("Server listening on port 4000");
