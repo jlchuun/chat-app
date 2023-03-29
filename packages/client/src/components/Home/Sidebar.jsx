@@ -1,6 +1,7 @@
 import { FriendContext } from "./Home";
 import { useContext, useState } from "react";
 import User from "./User";
+import { SocketContext } from "./Home";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -25,6 +26,7 @@ const style = {
 const Sidebar = ({ value, setValue }) => {
     const { friendsList, setFriendsList } = useContext(FriendContext);
     const [open, setOpen] = useState(false);
+    const { socket } = useContext(SocketContext);
 
     // open/close modal
     const handleOpen = () => setOpen(true);
@@ -38,6 +40,16 @@ const Sidebar = ({ value, setValue }) => {
     };
 
     // form handler
+
+    const addFriend = (values) => {
+        reset();
+        handleClose();
+        socket.send(JSON.stringify({
+            event: "addFriend",
+            friendName: values.username
+        }));
+    }
+
     const {
         control,
         formState: { errors },
@@ -63,11 +75,7 @@ const Sidebar = ({ value, setValue }) => {
                     open={open}
                     onClose={handleClose} >
                         <Box sx={style}>
-                            <form onSubmit={handleSubmit((values) => {
-                                console.log(values);
-                                reset();
-                                handleClose();
-                            })}>
+                            <form onSubmit={handleSubmit(addFriend)}>
                                <Stack spacing={3}>
                                     <Typography component="h2" variant="h5">
                                         Add Friend

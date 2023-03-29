@@ -1,13 +1,13 @@
 const express = require("express");
 const { WebSocketServer } = require("ws");
 const authRouter = require("./routers/authRouter");
-const Redis = require("./redis");
+const redisClient = require("./redis");
 const cors = require("cors");
 const session = require("express-session");
 const RedisStore = require("connect-redis").default;
+const { initializeUser, addFriend }  = require("./controllers/socketController");
 require("dotenv").config();
 
-const redisClient = Redis;
 // store userid for each socket
 const userMap = new Map();
 
@@ -56,12 +56,7 @@ server.on("upgrade", (req, socket, head) => {
             socket.destroy();
             return;
         }
-        redisClient.hset(
-            `userid:${req.session.user.username}`,
-            "userid",
-            req.session.user.userid
-        );
-
+        initializeUser(req);
         wss.handleUpgrade(req, socket, head, (ws) => {
             wss.emit("connection", ws, req);
         });
@@ -73,7 +68,10 @@ wss.on("connection", (ws, req) => {
     userMap.set(userid, ws);
 
     ws.on("message", (message) => {
-        console.log(message + " from " + req.session.user);
+        const msg = JSON.parse(message);
+        if (msg.event === "addFriend") {
+            addFriend(msg.friendName);
+        }
     }) 
 
     ws.on("close", () => {
