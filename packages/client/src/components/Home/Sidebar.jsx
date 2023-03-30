@@ -129,7 +129,7 @@ const Sidebar = ({ value, setValue }) => {
                 onChange={handleChange}
                 sx={{ borderRight: 1, borderColor: 'divider '}}>
                     {friendsList.map(friend => (
-                        <Tab label={<User username={friend} />} key={friend}/>
+                        <Tab label={<User username={friend} status="disconnected" />} key={friend}/>
                     ))}
             </Tabs>
         </Stack>
