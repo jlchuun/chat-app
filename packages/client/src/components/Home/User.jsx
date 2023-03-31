@@ -2,7 +2,6 @@ import { Typography, Badge, ListItem } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
@@ -35,7 +34,7 @@ const statusColors = {
     disconnected: "#DC143C"
 };
 
-const  User = ({ username, status }) => {
+const User = ({ username, status }) => {
     return (
         <ListItem>
             <StyledBadge

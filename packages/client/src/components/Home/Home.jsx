@@ -37,7 +37,7 @@ function TabPanel(props) {
 const Home = () => {
     const [friendsList, setFriendsList] = useState([]);
     const [value, setValue] = useState(0);
-    useSocket(setFriendsList);
+    useSocket(friendsList, setFriendsList);
     
 
     return (
@@ -46,17 +46,17 @@ const Home = () => {
           <Box gridColumn="span 3">
             <Sidebar value={value} setValue={setValue}/>
           </Box>
-            <Box gridColumn="span 7" >
-              <TabPanel value={value} index={0}>
-                  Friend 1
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-                  Friend 2
-              </TabPanel>
-              <TabPanel value={value} index={2}>
-                  Friend 3
-              </TabPanel>
-            </Box>
+          <Box gridColumn="span 7" >
+            <TabPanel value={value} index={0}>
+                Friend 1
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                Friend 2
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                Friend 3
+            </TabPanel>
+          </Box>
         </Box>
       </FriendContext.Provider>
     )

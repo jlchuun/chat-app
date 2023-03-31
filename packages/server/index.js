@@ -5,7 +5,13 @@ const cors = require("cors");
 const session = require("express-session");
 const RedisStore = require("connect-redis").default;
 const { Server } = require("socket.io");
-const { initializeUser, addFriend, authorizeUser }  = require("./controllers/socketController");
+const { 
+    initializeUser, 
+    addFriend, 
+    authorizeUser, 
+    onDisconnect 
+}  = require("./controllers/socketController");
+
 require("dotenv").config();
 
 redisClient.on("error", (err) => {
@@ -57,6 +63,10 @@ io.on("connect", socket => {
 
     socket.on("addFriend", (friendName, cb) => {
         addFriend(socket, friendName, cb);
+    });
+
+    socket.on("disconnecting", () => {
+        onDisconnect(socket);
     });
 });
 
