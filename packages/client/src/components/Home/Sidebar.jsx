@@ -6,10 +6,10 @@ import { useContext } from "react";
 
 import { Stack, Tabs, Tab } from "@mui/material";
 
-const Sidebar = ({ value, setValue }) => {
+const Sidebar = ({ tabIndex, setTabIndex }) => {
     // handles tab change
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const handleChange = (event, newIndex) => {
+        setTabIndex(newIndex);
     };
     
     const { friendsList } = useContext(FriendContext);
@@ -21,11 +21,11 @@ const Sidebar = ({ value, setValue }) => {
                 orientation="vertical"
                 variant="scrollable"
                 aria-label="Conversations"
-                value={value} 
+                value={tabIndex} 
                 onChange={handleChange}
                 sx={{ borderRight: 1, borderColor: 'divider '}}>
                     {friendsList.map(friend => (
-                        <Tab label={<User username={friend.username} status={friend.connected === "true" ? "connected" : "disconnected"} />} key={friend}/>
+                        <Tab label={<User username={friend.username} status={friend.connected === "true" ? "connected" : "disconnected"} />} key={friend.userid}/>
                     ))}
             </Tabs>
         </Stack>

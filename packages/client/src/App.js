@@ -1,5 +1,4 @@
 import Views from "./components/Views";
-import "./vars.css";
 import UserContext from "./components/AccountContext";
 import { useMemo } from "react";
 

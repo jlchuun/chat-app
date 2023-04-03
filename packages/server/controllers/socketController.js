@@ -110,7 +110,7 @@ const onDisconnect = async (socket) => {
     const friendsList = await redisClient.lrange(`friends:${socket.user.username}`, 0, -1);
     const friendIds = await getFriendListParse(friendsList).then(
         friends => friends.map(friend => friend.userid)
-        );
+    );
     socket.to(friendIds).emit("connected", false, socket.user.username);
 }
 

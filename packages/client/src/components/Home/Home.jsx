@@ -1,63 +1,53 @@
 import { createContext, useState } from "react";
 import Sidebar from "./Sidebar";
+import ChatTab from "./Chat/ChatTab";
 
-import PropTypes from 'prop-types';
-import { Box, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import useSocket from "./useSocket";
 
 export const FriendContext = createContext();
 export const SocketContext = createContext();
+export const MessageContext = createContext();
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
-  
-  TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-  };
+
 
 const Home = () => {
     const [friendsList, setFriendsList] = useState([]);
-    const [value, setValue] = useState(0);
+    const [messages, setMessages] = useState([
+      {
+        to: "another",
+        from: "current",
+        body: "Dummy text data"
+      },
+      {
+        to: "current",
+        from: "another",
+        body: "Dummy text data 2"
+      },
+      {
+        to: "another",
+        from: "current",
+        body: "Dummy text data"
+      }
+    ]);
+    const [tabIndex, setTabIndex] = useState(0);
     useSocket(friendsList, setFriendsList);
     
 
     return (
       <FriendContext.Provider value={{ friendsList, setFriendsList }}>
-        <Box display="grid" gridTemplateColumns="repeat(10, 1fr)" height="100dvh">
-          <Box gridColumn="span 3">
-            <Sidebar value={value} setValue={setValue}/>
-          </Box>
-          <Box gridColumn="span 7" >
-            <TabPanel value={value} index={0}>
-                Friend 1
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                Friend 2
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                Friend 3
-            </TabPanel>
-          </Box>
-        </Box>
+          <Grid container columns={10} sx ={{ height: "100dvh"}}>
+            <Grid item xs={3}>
+              <Sidebar tabIndex={tabIndex} setTabIndex={setTabIndex}/>
+            </Grid>
+            <Grid item xs={7}>
+              <MessageContext.Provider value={{ messages, setMessages }}>
+                {friendsList.map((friend, index) => (
+                  <ChatTab key={friend.userid} friend={friend} tabIndex={tabIndex} index={index} />
+                ))}
+              </MessageContext.Provider>
+            </Grid>
+          </Grid>
       </FriendContext.Provider>
     )
 }
