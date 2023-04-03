@@ -1,9 +1,6 @@
-import { useContext } from "react";
-
 import { Stack, Box, Typography } from "@mui/material"
 import Messages from "./Messages";
 import ChatField from "./ChatField";
-import { FriendContext } from "../Home";
 
 import PropTypes from 'prop-types';
 
@@ -33,8 +30,6 @@ function TabPanel(props) {
     value: PropTypes.number.isRequired,
   };
 const ChatTab = ({ friend, tabIndex, index }) => {
-    const { friendsList } = useContext(FriendContext);
-
     return (
         <TabPanel key={friend.userid} value={tabIndex} index={index}>
             <Stack

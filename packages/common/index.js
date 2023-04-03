@@ -1,5 +1,11 @@
 const yup = require("yup");
 
+const messageSchema = yup.object({
+    msgInput: yup.string()
+        .required()
+        .max(255, "Message is too long")
+}).required();
+
 const friendSchema = yup.object({
     username: yup.string()
         .required("Username is required")
@@ -29,4 +35,4 @@ const registerSchema = yup.object({
             .oneOf([yup.ref("password"), null], "Passwords must match")
     }).required();
 
-module.exports = { loginSchema, registerSchema, friendSchema };
+module.exports = { loginSchema, registerSchema, friendSchema, messageSchema };
