@@ -13,29 +13,13 @@ export const MessageContext = createContext();
 
 const Home = () => {
     const [friendsList, setFriendsList] = useState([]);
-    const [messages, setMessages] = useState([
-      {
-        to: "another",
-        from: "current",
-        body: "Dummy text data"
-      },
-      {
-        to: "current",
-        from: "another",
-        body: "Dummy text data 2"
-      },
-      {
-        to: "another",
-        from: "current",
-        body: "Dummy text data"
-      }
-    ]);
+    const [messages, setMessages] = useState([]);
     const [tabIndex, setTabIndex] = useState(0);
-    useSocket(friendsList, setFriendsList);
+    useSocket(friendsList, setFriendsList, setMessages);
     
 
     return (
-      <FriendContext.Provider value={{ friendsList, setFriendsList }}>
+      <FriendContext.Provider value={{ friendsList, setFriendsList, setMessages }}>
           <Grid container columns={10} sx ={{ height: "100dvh"}}>
             <Grid item xs={3}>
               <Sidebar tabIndex={tabIndex} setTabIndex={setTabIndex}/>

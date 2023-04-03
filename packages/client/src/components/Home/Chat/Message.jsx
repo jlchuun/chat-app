@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material"
 
-const Message = ({ msg, friend}) => {
+const Message = ({ msg, friend }) => {
     return (
         <Box sx={{
                 px: "1.5rem",
@@ -10,7 +10,7 @@ const Message = ({ msg, friend}) => {
                 maxWidth: "50%",
                 alignSelf: "flex-start",
                 backgroundColor: "#121212",
-                ...(msg.to === friend.username && {
+                ...(msg.to === friend.userid && {
                     alignSelf: "flex-end",
                     backgroundColor: "#3f51b5"
                 }),

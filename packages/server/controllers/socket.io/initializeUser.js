@@ -1,4 +1,5 @@
 const redisClient = require("../../redis");
+const getFriendListParse = require("./getFriendListParse");
 
 const initializeUser = async (socket) => {
     socket.user = { ...socket.request.session.user };
@@ -22,6 +23,20 @@ const initializeUser = async (socket) => {
 
     // send friends list to user
     socket.emit("friends", friendListParse);
+
+    const msgQuery = await redisClient.lrange(`chat:${socket.user.userid}`, 0, -1);
+    const messages = msgQuery.map(msgStr => {
+        const msg = msgStr.split(",");
+        return {
+            to: msg[0],
+            from: msg[1],
+            body: msg[2]
+        };
+    });
+
+    if (messages.length > 0) {
+        socket.emit("messages", messages);
+    }
 };
 
 module.exports = initializeUser;

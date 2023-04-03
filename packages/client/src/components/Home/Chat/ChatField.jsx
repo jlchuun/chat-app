@@ -28,6 +28,7 @@ const ChatField = ({ userid }) => {
         reset();
         const msg = { to: userid, from: null, body: values.msgInput}
         socket.emit("directMessage", msg);
+        console.log(messages);
         setMessages(prevMsgs => [msg, ...prevMsgs]);
     }
 

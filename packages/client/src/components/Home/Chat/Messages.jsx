@@ -19,7 +19,7 @@ const Messages = ({ friend }) => {
             height: "100%"
         }}>
             <div ref={bottom}></div>
-            {messages.filter(msg => msg.to === friend.username || msg.from === friend.username)
+            {messages.filter(msg => msg.to === friend.userid || msg.from === friend.userid)
                      .map((msg, index) => (
                         <Message key={`${msg}.${index}`} msg={msg} friend={friend} />
             ))}
