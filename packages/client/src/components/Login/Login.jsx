@@ -12,7 +12,8 @@ const Login = () => {
         control,
         formState: { errors }, 
         handleSubmit,
-        reset 
+        reset,
+        setFocus
     } = useForm({
         resolver: yupResolver(loginSchema),
         defaultValues: {
@@ -26,7 +27,7 @@ const Login = () => {
     const [inputError, setInputError] = useState(null);
 
     const onSubmit = (values) => {
-        console.log(values);
+        setFocus("username");
         reset();
         fetch("http://localhost:4000/auth/login", {
             method: "POST",

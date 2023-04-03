@@ -13,7 +13,8 @@ const Register = () => {
     const { control, 
             reset,
             formState: { errors }, 
-            handleSubmit 
+            handleSubmit,
+            setFocus 
         } = useForm({
             resolver: yupResolver(registerSchema),
             defaultValues: {
@@ -30,7 +31,7 @@ const Register = () => {
     
 
     const onSubmit = values => {
-        console.log(values);
+        setFocus("email");
         reset();
         fetch("http://localhost:4000/auth/register", {
             method: "POST",
