@@ -41,7 +41,7 @@ const ChatTab = ({ friend, tabIndex, index }) => {
                 }}
             >
                 <Messages key={friend.userid} friend={friend} />
-                <ChatField></ChatField>
+                <ChatField userid={friend.userid}></ChatField>
             </Stack>
         </TabPanel>
     );

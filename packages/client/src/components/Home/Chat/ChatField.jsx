@@ -7,8 +7,11 @@ import { messageSchema } from "@chat-app/common";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import socket from "../../../socket";
+import { MessageContext } from "../Home";
+import { useContext } from "react";
 
-const ChatField = () => {
+const ChatField = ({ userid }) => {
     const {
         control,
         reset,
@@ -20,9 +23,12 @@ const ChatField = () => {
         resolver: yupResolver(messageSchema)
     });
 
+    const { messages, setMessages } = useContext(MessageContext);
     const sendMsg = (values) => {
         reset();
-        console.log("Msg: ", values);
+        const msg = { to: userid, from: null, body: values.msgInput}
+        socket.emit("directMessage", msg);
+        setMessages(prevMsgs => [msg, ...prevMsgs]);
     }
 
     return (
