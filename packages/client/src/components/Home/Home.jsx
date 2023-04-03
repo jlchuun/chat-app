@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import Sidebar from "./Sidebar";
 import ChatTab from "./Chat/ChatTab";
 
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import useSocket from "./useSocket";
 
 export const FriendContext = createContext();
@@ -42,9 +42,12 @@ const Home = () => {
             </Grid>
             <Grid item xs={7}>
               <MessageContext.Provider value={{ messages, setMessages }}>
-                {friendsList.map((friend, index) => (
+                {friendsList.length > 0 ? friendsList.map((friend, index) => (
                   <ChatTab key={friend.userid} friend={friend} tabIndex={tabIndex} index={index} />
-                ))}
+                )) : 
+                <Typography variant="h4" component="h1" textAlign="center" sx={{ m: 4}}>
+                    You have no friends. Add friends to chat.
+                </Typography>}
               </MessageContext.Provider>
             </Grid>
           </Grid>

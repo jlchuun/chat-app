@@ -33,6 +33,8 @@ function TabPanel(props) {
     value: PropTypes.number.isRequired,
   };
 const ChatTab = ({ friend, tabIndex, index }) => {
+    const { friendsList } = useContext(FriendContext);
+
     return (
         <TabPanel key={friend.userid} value={tabIndex} index={index}>
             <Stack

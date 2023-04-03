@@ -51,7 +51,6 @@ const registerAuth = async (req, res) => {
             "INSERT INTO users(email, username, password_hash, userid) values ($1, $2, $3, $4) RETURNING id, username, userid",
             [req.body.email, req.body.username, passHash, uuidv4()]
         );
-        console.log(req.body.password);
 
         req.session.user = {
             username: req.body.username,

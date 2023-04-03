@@ -5,7 +5,7 @@ const Message = ({ msg, friend}) => {
         <Box sx={{
                 px: "1.5rem",
                 py: "1rem",
-                my: ".2rem",
+                m: ".2rem",
                 borderRadius: "10px",
                 maxWidth: "50%",
                 alignSelf: "flex-start",
