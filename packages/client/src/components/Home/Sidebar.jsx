@@ -2,9 +2,9 @@ import User from "./User";
 import AddModal from "./AddModal";
 import { FriendContext } from "./Home";
 import { useContext } from "react";
+import FriendReqModal from "./FriendReqModal";
 
-
-import { Stack, Tabs, Tab } from "@mui/material";
+import { Typography, Stack, Tabs, Tab } from "@mui/material";
 
 const Sidebar = ({ tabIndex, setTabIndex }) => {
     // handles tab change
@@ -16,7 +16,13 @@ const Sidebar = ({ tabIndex, setTabIndex }) => {
 
     return (
         <Stack spacing={1.5} sx={{borderRight: 1, borderColor: "divider"}}>
-            <AddModal />
+            <Typography component="h1" variant="h2">
+                All-Chat
+            </Typography>
+            <Stack direction="row" spacing={1} >
+                <AddModal />
+                <FriendReqModal />
+            </Stack>
             <Tabs
                 orientation="vertical"
                 variant="scrollable"

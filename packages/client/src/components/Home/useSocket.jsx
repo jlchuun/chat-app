@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import socket from "../../socket";
 import { AccountContext } from "../AccountContext";
 
-const useSocket = (friendsList, setFriendsList, setMessages) => {
+const useSocket = (friendsList, setFriendsList, setMessages, setFriendRequests) => {
   const { setUser } = useContext(AccountContext);
 
   useEffect(() => {
@@ -28,12 +28,16 @@ const useSocket = (friendsList, setFriendsList, setMessages) => {
     })
 
     socket.on("directMessage", (message) => {
-      console.log(message);
       setMessages(prevMsgs => [message, ...prevMsgs]);
     })
 
     socket.on("connect_error", () => {
       setUser({ loggedIn: false });
+    })
+
+    socket.on("friendRequests", (request) => {
+      // toggle snackbar noti
+      setFriendRequests(prevReqs => [request, ...prevReqs]);
     })
 
     return () => {
@@ -42,8 +46,9 @@ const useSocket = (friendsList, setFriendsList, setMessages) => {
       socket.off("messages");
       socket.off("addFriend");
       socket.off("friends");
+      socket.off("friendRequests");
     };
-  }, [setUser, setFriendsList, friendsList, setMessages]);
+  }, [setUser, setFriendsList, friendsList, setMessages, setFriendRequests]);
 };
 
 export default useSocket;

@@ -8,22 +8,26 @@ import useSocket from "./useSocket";
 export const FriendContext = createContext();
 export const SocketContext = createContext();
 export const MessageContext = createContext();
-
-
+export const FriendReqContext = createContext();
 
 const Home = () => {
     const [friendsList, setFriendsList] = useState([]);
+    const [friendRequests, setFriendRequests] = useState([
+      {username: "testing", userid: "testtest", connected: "true"}
+    ]);
     const [messages, setMessages] = useState([]);
     const [tabIndex, setTabIndex] = useState(0);
-    useSocket(friendsList, setFriendsList, setMessages);
+    useSocket(friendsList, setFriendsList, setMessages, setFriendRequests);
     
 
     return (
       <FriendContext.Provider value={{ friendsList, setFriendsList, setMessages }}>
           <Grid container columns={10} sx ={{ height: "100dvh"}}>
-            <Grid item xs={3}>
-              <Sidebar tabIndex={tabIndex} setTabIndex={setTabIndex}/>
-            </Grid>
+            <FriendReqContext.Provider value={{ friendRequests, setFriendRequests }}>
+              <Grid item xs={3}>
+                <Sidebar tabIndex={tabIndex} setTabIndex={setTabIndex}/>
+              </Grid>
+            </FriendReqContext.Provider>
             <Grid item xs={7}>
               <MessageContext.Provider value={{ messages, setMessages }}>
                 {friendsList.length > 0 ? friendsList.map((friend, index) => (

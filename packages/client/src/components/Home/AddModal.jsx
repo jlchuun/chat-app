@@ -5,7 +5,6 @@ import { friendSchema } from "@chat-app/common";
 import { useContext, useState } from "react";
 import { FriendContext } from "./Home";
 
-
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 import { Box, TextField, Stack, Alert, Typography, Button, Modal } from "@mui/material";
@@ -60,10 +59,7 @@ const AddModal = () => {
         }
     });
     return (
-        <Stack direction="row" spacing={5} sx={{m: '1rem'}}>
-            <Typography component="h2" variant="h5">
-                Add Friend
-            </Typography>
+        <>
             <Button size="small" variant="contained" onClick={handleOpen}>
                 <PersonAddAlt1Icon></PersonAddAlt1Icon>
             </Button>
@@ -100,7 +96,7 @@ const AddModal = () => {
                         </form> 
                     </Box>
             </Modal>
-        </Stack>
+        </>
     )
 }
 
