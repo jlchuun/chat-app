@@ -15,6 +15,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { useContext, useState } from "react";
 import { FriendReqContext } from "./Home";
+import { FriendContext } from "./Home";
+import socket from "../../socket";
 
 const style = {
     position: 'absolute',
@@ -31,8 +33,20 @@ const style = {
 const FriendReqModal = () => {
     const [open, setOpen] = useState(false);
     const { friendRequests, setFriendRequests } = useContext(FriendReqContext);
+    const { setFriendsList } = useContext(FriendContext);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    // accept is true to add, false to deny
+    const handleReq = (user, accept) =>  {
+        console.log(user);
+        setFriendRequests(prevMsgs => prevMsgs.filter(request => request.userid !== user.userid));
+        socket.emit("addFriend", {user, accept});
+        if (accept) {
+            setFriendsList(prevFriends => [user, ...prevFriends]);
+        }
+    }
 
     return (
         <>
@@ -52,12 +66,13 @@ const FriendReqModal = () => {
                         <List>
                             {friendRequests.map(user => (
                                 <ListItem
+                                    key={user.userid}
                                     secondaryAction={
                                         <ButtonGroup>
-                                            <IconButton>
+                                            <IconButton onClick={() => handleReq(user, true)}>
                                                 <CheckIcon />
                                             </IconButton>
-                                            <IconButton>
+                                            <IconButton onClick={() => handleReq(user, false)}>
                                                 <CloseIcon />
                                             </IconButton>
                                         </ButtonGroup>

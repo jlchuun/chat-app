@@ -22,8 +22,6 @@ const style = {
 };
 
 const AddModal = () => {
-    const { setFriendsList } = useContext(FriendContext);
-
     const [open, setOpen] = useState(false);
     const [error, setError] = useState(null);
 
@@ -35,11 +33,10 @@ const AddModal = () => {
     }
     const addFriend = (values) => {
         reset();
-        socket.emit("addFriend", values.username, 
-        ({ status, message, newFriend }) => {
-            console.log(status, message, newFriend);
+        socket.emit("friendRequest", values.username, 
+        ({ status, message }) => {
+            console.log(status, message);
             if (status === "success") {
-                setFriendsList(friends => [newFriend, ...friends]);
                 handleClose();
                 return;
             }

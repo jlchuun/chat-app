@@ -10,7 +10,8 @@ const {
     addFriend, 
     authorizeUser, 
     onDisconnect,
-    directMessage
+    directMessage,
+    friendRequest
 }  = require("./controllers/socketController");
 
 require("dotenv").config();
@@ -62,13 +63,17 @@ io.use(authorizeUser);
 io.on("connect", socket => {
     initializeUser(socket);
 
-    socket.on("addFriend", (friendName, cb) => {
-        addFriend(socket, friendName, cb);
+    socket.on("friendRequest", (friendName, cb) => {
+        friendRequest(socket, friendName, cb);
+    });
+
+    socket.on("addFriend", (data) => {
+        addFriend(socket, data);
     });
 
     socket.on("directMessage", (message) => {
         directMessage(socket, message);
-    })
+    });
 
     socket.on("disconnecting", () => {
         onDisconnect(socket);

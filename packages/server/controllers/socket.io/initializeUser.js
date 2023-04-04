@@ -24,6 +24,7 @@ const initializeUser = async (socket) => {
     // send friends list to user
     socket.emit("friends", friendListParse);
 
+    // send all messages to user
     const msgQuery = await redisClient.lrange(`chat:${socket.user.userid}`, 0, -1);
     const messages = msgQuery.map(msgStr => {
         const msg = msgStr.split(",");
@@ -37,6 +38,11 @@ const initializeUser = async (socket) => {
     if (messages.length > 0) {
         socket.emit("messages", messages);
     }
+
+    // get all pending friend requests
+    const friendRequests = await redisClient.lrange(`friendRequests:${socket.user.username}`, 0, -1);
+    const friendRequestParse = await getFriendListParse(friendRequests);
+    socket.emit("friendRequests", friendRequestParse);
 };
 
 module.exports = initializeUser;

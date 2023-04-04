@@ -35,9 +35,15 @@ const useSocket = (friendsList, setFriendsList, setMessages, setFriendRequests) 
       setUser({ loggedIn: false });
     })
 
-    socket.on("friendRequests", (request) => {
-      // toggle snackbar noti
-      setFriendRequests(prevReqs => [request, ...prevReqs]);
+    // get pending friend requests
+    socket.on("friendRequests", (requests) => {
+      console.log(requests);
+      setFriendRequests(requests);
+    })
+    // get incoming friend request
+    socket.on("newFriendRequest", (user) => {
+      console.log(user);
+      setFriendRequests(prevReqs => [user, ...prevReqs]);
     })
 
     return () => {
@@ -46,7 +52,8 @@ const useSocket = (friendsList, setFriendsList, setMessages, setFriendRequests) 
       socket.off("messages");
       socket.off("addFriend");
       socket.off("friends");
-      socket.off("friendRequests");
+      socket.off("friendRequest");
+      socket.off("newFriendRequest");
     };
   }, [setUser, setFriendsList, friendsList, setMessages, setFriendRequests]);
 };

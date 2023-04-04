@@ -23,12 +23,11 @@ const ChatField = ({ userid }) => {
         resolver: yupResolver(messageSchema)
     });
 
-    const { messages, setMessages } = useContext(MessageContext);
+    const { setMessages } = useContext(MessageContext);
     const sendMsg = (values) => {
         reset();
         const msg = { to: userid, from: null, body: values.msgInput}
         socket.emit("directMessage", msg);
-        console.log(messages);
         setMessages(prevMsgs => [msg, ...prevMsgs]);
     }
 
