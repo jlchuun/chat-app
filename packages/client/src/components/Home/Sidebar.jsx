@@ -31,7 +31,7 @@ const Sidebar = ({ tabIndex, setTabIndex }) => {
                 onChange={handleChange}
                 sx={{ borderRight: 1, borderColor: 'divider '}}>
                     {friendsList.map(friend => (
-                        <Tab label={<User username={friend.username} status={friend.connected === "true" ? "connected" : "disconnected"} />} key={friend.userid}/>
+                        <Tab component="a" label={<User user={friend} status={friend.connected === "true" ? "connected" : "disconnected"} />} key={friend.userid}/>
                     ))}
             </Tabs>
         </Stack>

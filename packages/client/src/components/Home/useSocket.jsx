@@ -37,12 +37,10 @@ const useSocket = (friendsList, setFriendsList, setMessages, setFriendRequests) 
 
     // get pending friend requests
     socket.on("friendRequests", (requests) => {
-      console.log(requests);
       setFriendRequests(requests);
     })
     // get incoming friend request
     socket.on("newFriendRequest", (user) => {
-      console.log(user);
       setFriendRequests(prevReqs => [user, ...prevReqs]);
     })
 

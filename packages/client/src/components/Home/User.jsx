@@ -1,6 +1,18 @@
-import { Typography, Badge, ListItem } from "@mui/material";
+import { 
+        Typography, 
+        Badge, 
+        ListItem, 
+        IconButton, 
+        Dialog,
+        DialogTitle,
+        DialogActions,
+        Button
+      } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CloseIcon from '@mui/icons-material/Close';
+
+import { useState } from "react";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -34,9 +46,26 @@ const statusColors = {
     disconnected: "#DC143C"
 };
 
-const User = ({ username, status }) => {
+const User = ({ user, status }) => {
+    // for delete friend dialog
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const removeFriend = () => {
+        
+    }
+
     return (
-        <ListItem>
+        <ListItem
+          disableGutters
+          secondaryAction={
+            <IconButton onClick={handleOpen} >
+              <CloseIcon />
+            </IconButton>
+          }  
+        >
             <StyledBadge
                 overlap="circular"
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -50,10 +79,18 @@ const User = ({ username, status }) => {
             >
                 <AccountCircleIcon fontSize="inherit" sx={{fontSize: "3rem"}}></AccountCircleIcon>
             </StyledBadge>
-    
-            <Typography component="p" variant="body1" textTransform="none">
-                {username}
+            <Typography component="p" variant="body1" textTransform="none" m={1}>
+                {user.username}
             </Typography>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>
+                  {"Remove friend from messages?"}
+                </DialogTitle>
+                <DialogActions>
+                  <Button onClick={removeFriend} >Confirm</Button>
+                  <Button onClick={handleClose} >Cancel</Button>
+                </DialogActions>
+            </Dialog>
         </ListItem>
     )
 }
