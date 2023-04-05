@@ -2,12 +2,12 @@ import socket from "../../socket";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { friendSchema } from "@chat-app/common";
-import { useContext, useState } from "react";
-import { FriendContext } from "./Home";
+import { useState } from "react";
+
 
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
-import { Box, TextField, Stack, Alert, Typography, Button, Modal } from "@mui/material";
+import { Box, TextField, Stack, Alert, Typography, Button, Modal, Tooltip } from "@mui/material";
 
 const style = {
     position: 'absolute',
@@ -57,9 +57,12 @@ const AddModal = () => {
     });
     return (
         <>
-            <Button size="small" variant="contained" onClick={handleOpen}>
-                <PersonAddAlt1Icon></PersonAddAlt1Icon>
-            </Button>
+            <Tooltip title="Add Friend">
+                <Button size="small" variant="contained" onClick={handleOpen}>
+                    <PersonAddAlt1Icon></PersonAddAlt1Icon>
+                </Button>
+            </Tooltip>
+            
             <Modal
                 open={open}
                 onClose={handleClose} >

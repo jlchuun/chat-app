@@ -7,7 +7,8 @@ import { Typography,
          ListItem,
          ListItemText,
          IconButton,
-         ButtonGroup
+         ButtonGroup,
+         Tooltip
         } from "@mui/material";
 
 import PeopleIcon from '@mui/icons-material/People';
@@ -49,9 +50,12 @@ const FriendReqModal = () => {
 
     return (
         <>
-            <Button size="small" variant="contained" onClick={handleOpen}>
-                <PeopleIcon />
-            </Button>
+            <Tooltip title="Friend Requests">
+                <Button size="small" variant="contained" onClick={handleOpen}>
+                    <PeopleIcon />
+                </Button>
+            </Tooltip>
+            
             <Modal
                 open={open}
                 onClose={handleClose}

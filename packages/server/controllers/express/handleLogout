@@ -1,0 +1,15 @@
+const handleLogout = (req, res) => {
+    if (req.session) {
+        req.session.destroy(err => {
+            if (err) {
+                res.status(400).send("Problem logging out");
+            } else {
+                res.send("Successful logout");
+            }
+        });
+    } else {
+        res.end();
+    }
+}
+
+module.exports = handleLogout;

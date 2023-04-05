@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const validateForm = require("../controllers/express/validateForm");
 const {loginSchema, registerSchema} = require("@chat-app/common");
-const { loginAuth, registerAuth, handleLogin } = require("../controllers/authController");
+const { loginAuth, registerAuth, handleLogin, handleLogout } = require("../controllers/authController");
 const { rateLimiter } = require("../controllers/express/rateLimiter");
 
 // API Rate limit
@@ -16,5 +16,9 @@ router
 
 router
     .post("/register", (validateForm(registerSchema), rateLimiter(SECONDS_LIMIT, LIMIT_AMOUNT), registerAuth));
+    
+router
+    .route("/logout")
+    .post(handleLogout);
 
 module.exports = router;
