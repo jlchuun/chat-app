@@ -12,9 +12,7 @@ export const FriendReqContext = createContext();
 
 const Home = () => {
     const [friendsList, setFriendsList] = useState([]);
-    const [friendRequests, setFriendRequests] = useState([
-      {username: "testing", userid: "testtest", connected: "true"}
-    ]);
+    const [friendRequests, setFriendRequests] = useState([]);
     const [messages, setMessages] = useState([]);
     const [tabIndex, setTabIndex] = useState(0);
     useSocket(friendsList, setFriendsList, setMessages, setFriendRequests);

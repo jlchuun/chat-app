@@ -48,7 +48,7 @@ const statusColors = {
     disconnected: "#DC143C"
 };
 
-const User = ({ friend, status }) => {
+const User = ({ friend, status, setTabIndex }) => {
     // for delete friend dialog
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -57,6 +57,7 @@ const User = ({ friend, status }) => {
     const { setFriendsList } = useContext(FriendContext);
 
     const removeFriend = () => {
+          setTabIndex(0);
           setFriendsList(prevFriends => prevFriends.filter(user => user.userid !== friend.userid));
           socket.emit("removeFriend", friend);
     }
