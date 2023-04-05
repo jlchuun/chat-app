@@ -1,4 +1,4 @@
-const redisClient = require("../redis");
+const redisClient = require("../../redis");
 
 const rateLimiter = (secondsLimit, maxLimit) => {
     return async (req, res, next) => {

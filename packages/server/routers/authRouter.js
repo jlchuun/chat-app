@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const validateForm = require("../controllers/validateForm");
+const validateForm = require("../controllers/express/validateForm");
 const {loginSchema, registerSchema} = require("@chat-app/common");
 const { loginAuth, registerAuth, handleLogin } = require("../controllers/authController");
-const { rateLimiter } = require("../controllers/rateLimiter");
+const { rateLimiter } = require("../controllers/express/rateLimiter");
 
 // API Rate limit
 const SECONDS_LIMIT = 60;

@@ -6,5 +6,3 @@ CREATE TABLE users (
     email VARCHAR(319) NOT NULL UNIQUE,
     password_hash VARCHAR(60) NOT NULL
 );
-
--- SELECT username, email FROM users WHERE email='asdfasdf@test.com' OR username='testUser';
