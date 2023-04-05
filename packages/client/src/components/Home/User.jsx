@@ -12,7 +12,9 @@ import { styled } from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { FriendContext } from "./Home";
+import socket from "../../socket";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -46,15 +48,17 @@ const statusColors = {
     disconnected: "#DC143C"
 };
 
-const User = ({ user, status }) => {
+const User = ({ friend, status }) => {
     // for delete friend dialog
     const [open, setOpen] = useState(false);
-
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const { setFriendsList } = useContext(FriendContext);
+
     const removeFriend = () => {
-        
+          setFriendsList(prevFriends => prevFriends.filter(user => user.userid !== friend.userid));
+          socket.emit("removeFriend", friend);
     }
 
     return (
@@ -80,7 +84,7 @@ const User = ({ user, status }) => {
                 <AccountCircleIcon fontSize="inherit" sx={{fontSize: "3rem"}}></AccountCircleIcon>
             </StyledBadge>
             <Typography component="p" variant="body1" textTransform="none" m={1}>
-                {user.username}
+                {friend.username}
             </Typography>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>

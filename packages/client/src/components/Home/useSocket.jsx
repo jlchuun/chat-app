@@ -44,6 +44,10 @@ const useSocket = (friendsList, setFriendsList, setMessages, setFriendRequests) 
       setFriendRequests(prevReqs => [user, ...prevReqs]);
     })
 
+    socket.on("removeFriend", (user) => {
+      setFriendsList(prevFriends => prevFriends.filter(friend => friend.userid !== user.userid));
+    })
+
     return () => {
       socket.off("connect_error");
       socket.off("directMessage");
@@ -52,6 +56,7 @@ const useSocket = (friendsList, setFriendsList, setMessages, setFriendRequests) 
       socket.off("friends");
       socket.off("friendRequest");
       socket.off("newFriendRequest");
+      socket.off("removeFriend");
     };
   }, [setUser, setFriendsList, friendsList, setMessages, setFriendRequests]);
 };

@@ -40,7 +40,6 @@ const FriendReqModal = () => {
 
     // accept is true to add, false to deny
     const handleReq = (user, accept) =>  {
-        console.log(user);
         setFriendRequests(prevMsgs => prevMsgs.filter(request => request.userid !== user.userid));
         socket.emit("addFriend", {user, accept});
         if (accept) {

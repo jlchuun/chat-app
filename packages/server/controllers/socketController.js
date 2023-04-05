@@ -4,6 +4,7 @@ const addFriend = require("./socket.io/addFriend");
 const onDisconnect = require("./socket.io/onDisconnect");
 const directMessage = require("./socket.io/directMessage");
 const friendRequest = require("./socket.io/friendRequest");
+const removeFriend = require("./socket.io/removeFriend");
 
 module.exports = {
     authorizeUser,
@@ -11,5 +12,6 @@ module.exports = {
     addFriend,
     onDisconnect,
     directMessage,
+    removeFriend,
     friendRequest
 };
