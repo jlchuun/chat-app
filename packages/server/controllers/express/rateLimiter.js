@@ -2,7 +2,7 @@ const redisClient = require("../../redis");
 
 const rateLimiter = (secondsLimit, maxLimit) => {
     return async (req, res, next) => {
-        const ip = req.ip || req.connection.remoteAddress;
+        const ip = req.headers["x-forwared-for"] || req.connection.remoteAddress;
         const [response] = await redisClient
             .multi()
             .incr(ip)

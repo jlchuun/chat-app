@@ -18,7 +18,7 @@ const Sidebar = ({ tabIndex, setTabIndex }) => {
     const { friendsList } = useContext(FriendContext);
 
     const handleLogout = () => {
-        fetch("http://localhost:4000/auth/logout", {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/auth/logout`, {
             method: "POST",
             credentials: "include",
         }).then(res => {

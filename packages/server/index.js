@@ -55,6 +55,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(sessionParser);
 app.use("/auth", authRouter);
+app.set("trust proxy", 1);
 
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 
@@ -85,6 +86,7 @@ io.on("connect", socket => {
     });
 });
 
-server.listen(4000, () => {
-    console.log("Server listening on port 4000");
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
 });
