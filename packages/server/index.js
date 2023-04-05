@@ -44,7 +44,7 @@ const sessionParser = session({
 
 const corsOptions = {
     credentials: true,
-    origin: "http://localhost:3000"
+    origin: process.env.CLIENT_URL
 }
 
 const io = new Server(server, {
