@@ -1,0 +1,13 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "yarn workspace @chat-app/server run dev",
+    "dev:client": "yarn workspace @chat-app/client start",
+    "build:client": "yarn workspace @chat-app/client build"
+  }
+}
