@@ -7,6 +7,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 
 import { Typography, Stack, Tabs, Tab, IconButton, Tooltip } from "@mui/material";
+import socket from "../../socket";
 
 const Sidebar = ({ tabIndex, setTabIndex }) => {
     // handles tab change
@@ -26,6 +27,7 @@ const Sidebar = ({ tabIndex, setTabIndex }) => {
                 return;
             }
         }).then(() => {
+            socket.disconnect();
             navigate("/");
         })
         .catch(err => {
@@ -57,7 +59,7 @@ const Sidebar = ({ tabIndex, setTabIndex }) => {
                 onChange={handleChange}
                 sx={{ borderRight: 1, borderColor: 'divider '}}>
                     {friendsList.map(friend => (
-                        <Tab component="a" label={<User friend={friend} status={friend.connected === "true" ? "connected" : "disconnected"} />} key={friend.userid}/>
+                        <Tab component="a" label={<User friend={friend} status={friend.connected === "true" ? "connected" : "disconnected"} setTabIndex={setTabIndex} />} key={friend.userid}/>
                     ))}
             </Tabs>
         </Stack>
