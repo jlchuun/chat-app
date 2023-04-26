@@ -47,7 +47,7 @@ The main use case of this application is the realtime direct messaging, but some
 
 ## Contact
 
-Joshua Chung - joshlchung@gmail.com
+Joshua Chung - joshleechung@gmail.com
 
 Project Link - https://github.com/jlchuun/chat-app
 
